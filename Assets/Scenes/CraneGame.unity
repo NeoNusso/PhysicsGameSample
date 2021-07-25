@@ -943,9 +943,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a67d3c06f99122488a078f2c1c6e94f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _joint: {fileID: 0}
-  _ufoJoint: {fileID: 0}
-  _speed: 10
+  _XJoint: {fileID: 929972204}
+  _ZJoint: {fileID: 582925574}
+  _YJoint: {fileID: 884546802}
+  _carcherJoint:
+  - {fileID: 1986055124}
+  - {fileID: 300998094}
 --- !u!4 &367595872
 Transform:
   m_ObjectHideFlags: 0
@@ -3934,7 +3937,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: -2.0000021, y: 3e-44, z: NaN, w: NaN}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
