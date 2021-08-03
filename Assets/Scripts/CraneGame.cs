@@ -57,12 +57,12 @@ public class CraneGame : MonoBehaviour
 		}
 		if (Input.GetKey(KeyCode.UpArrow))
 		{
-			JointMoveAxis(_YJoint, 1, -Time.fixedDeltaTime * _jointModeSpeed, 0.4f, 0.0f);
+			JointMoveAxis(_YJoint, 1, -Time.fixedDeltaTime * _jointModeSpeed, 0.53f, 0.0f);
 			//JointMove(_YJoint, new Vector3(0.0f, -Time.fixedDeltaTime * _jointModeSpeed, 0.0f));
 		}
 		if (Input.GetKey(KeyCode.DownArrow))
 		{
-			JointMoveAxis(_YJoint, 1, Time.fixedDeltaTime * _jointModeSpeed, 0.4f, 0.0f);
+			JointMoveAxis(_YJoint, 1, Time.fixedDeltaTime * _jointModeSpeed, 0.53f, 0.0f);
 			//JointMove(_YJoint, new Vector3(0.0f, Time.fixedDeltaTime * _jointModeSpeed, 0.0f));
 		}
 		if (Input.GetKey(KeyCode.RightArrow))
