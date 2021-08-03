@@ -69,8 +69,8 @@ public class RagdollSyncer : MonoBehaviour
 	public Transform _targetRoot;
 
 	
-	float _spring = 100.0f;
-	float _dumper = 1.0f;
+	public float _spring = 100.0f;
+	public float _dumper = 1.0f;
 
 	private void Start()
 	{
