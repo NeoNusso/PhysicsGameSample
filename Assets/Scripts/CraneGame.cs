@@ -28,7 +28,7 @@ public class CraneGame : MonoBehaviour
 		rot *= Quaternion.Euler(deltarot);
 		joint.targetRotation = rot;
 	}
-	float _jointModeSpeed = 0.5f;
+	float _jointMoveSpeed = 0.5f;
 	float _jointRotSpeed = 15.0f;
 	void RotCatch(float delta)
 	{
@@ -40,29 +40,29 @@ public class CraneGame : MonoBehaviour
 	{
 		if (Input.GetKey(KeyCode.D))
 		{
-			JointMove(_XJoint, new Vector3(Time.fixedDeltaTime * _jointModeSpeed, 0.0f, 0.0f));
+			JointMove(_XJoint, new Vector3(Time.fixedDeltaTime * _jointMoveSpeed, 0.0f, 0.0f));
 
 		}
 		if (Input.GetKey(KeyCode.A))
 		{
-			JointMove(_XJoint, new Vector3(-Time.fixedDeltaTime * _jointModeSpeed, 0.0f, 0.0f));
+			JointMove(_XJoint, new Vector3(-Time.fixedDeltaTime * _jointMoveSpeed, 0.0f, 0.0f));
 		}
 		if (Input.GetKey(KeyCode.W))
 		{
-			JointMove(_ZJoint, new Vector3(0.0f, 0.0f, Time.fixedDeltaTime * _jointModeSpeed));
+			JointMove(_ZJoint, new Vector3(0.0f, 0.0f, Time.fixedDeltaTime * _jointMoveSpeed));
 		}
 		if (Input.GetKey(KeyCode.S))
 		{
-			JointMove(_ZJoint, new Vector3(0.0f, 0.0f, -Time.fixedDeltaTime * _jointModeSpeed));
+			JointMove(_ZJoint, new Vector3(0.0f, 0.0f, -Time.fixedDeltaTime * _jointMoveSpeed));
 		}
 		if (Input.GetKey(KeyCode.UpArrow))
 		{
-			JointMoveAxis(_YJoint, 1, -Time.fixedDeltaTime * _jointModeSpeed, 0.53f, 0.0f);
+			JointMoveAxis(_YJoint, 1, -Time.fixedDeltaTime * _jointMoveSpeed, 0.53f, 0.0f);
 			//JointMove(_YJoint, new Vector3(0.0f, -Time.fixedDeltaTime * _jointModeSpeed, 0.0f));
 		}
 		if (Input.GetKey(KeyCode.DownArrow))
 		{
-			JointMoveAxis(_YJoint, 1, Time.fixedDeltaTime * _jointModeSpeed, 0.53f, 0.0f);
+			JointMoveAxis(_YJoint, 1, Time.fixedDeltaTime * _jointMoveSpeed, 0.53f, 0.0f);
 			//JointMove(_YJoint, new Vector3(0.0f, Time.fixedDeltaTime * _jointModeSpeed, 0.0f));
 		}
 		if (Input.GetKey(KeyCode.RightArrow))
