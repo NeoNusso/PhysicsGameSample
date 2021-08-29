@@ -6,6 +6,7 @@ public class HumanController : MonoBehaviour
 {
 	public Transform[] _handTransform;
 	public Transform _spine;
+	public Animator _animator;
 	float _moveSpeed = 0.7f;
 	float _rotSpeed = 10.0f;
 	void MoveTarget(Transform t, Vector3 velocity)
@@ -19,6 +20,14 @@ public class HumanController : MonoBehaviour
 		var angles = t.localRotation.eulerAngles;
 		angles += velocity * Time.fixedDeltaTime;
 		t.localRotation = Quaternion.Euler(angles);
+	}
+	private void Start()
+	{
+		if (_animator)
+		{
+			_animator.SetFloat("Speed", 3.0f);
+			_animator.SetFloat("MotionSpeed", 1.0f);
+		}
 	}
 	static Vector3 zero = Vector3.zero;
 	private void FixedUpdate()

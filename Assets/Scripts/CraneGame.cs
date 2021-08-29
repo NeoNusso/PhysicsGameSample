@@ -9,6 +9,18 @@ public class CraneGame : MonoBehaviour
 	public ConfigurableJoint _YJoint;
 
 	public ConfigurableJoint[] _carcherJoint;
+
+	public Camera _camera;
+	public Transform[] _cameraPositions;
+	int _cameraIndex;
+	void CameraUpdate()
+	{
+		var target = _cameraPositions[_cameraIndex];
+		var camtr = _camera.transform;
+		_camera.transform.SetPositionAndRotation(
+			Vector3.Lerp(camtr.position, target.position, 0.1f), Quaternion.Slerp( camtr.rotation, target.rotation,0.1f));
+	}
+
 	// Update is called once per frame
 	void JointMove(ConfigurableJoint joint, Vector3 deltapos)
 	{
@@ -41,7 +53,6 @@ public class CraneGame : MonoBehaviour
 		if (Input.GetKey(KeyCode.D))
 		{
 			JointMove(_XJoint, new Vector3(Time.fixedDeltaTime * _jointMoveSpeed, 0.0f, 0.0f));
-
 		}
 		if (Input.GetKey(KeyCode.A))
 		{
@@ -72,6 +83,33 @@ public class CraneGame : MonoBehaviour
 		if (Input.GetKey(KeyCode.LeftArrow))
 		{
 			RotCatch(Time.fixedDeltaTime * _jointRotSpeed);
+		}
+		CameraUpdate();
+	}
+	float defaultDeltatime;
+	bool _lowTimestep;
+	private void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.Alpha1))
+		{
+			_cameraIndex ^= 1;
+		}
+
+		if (Input.GetKeyDown(KeyCode.Alpha2))
+		{
+			if(defaultDeltatime == 0.0f)
+			{
+				defaultDeltatime = Time.fixedDeltaTime;
+			}
+			_lowTimestep ^= true;
+			if (_lowTimestep)
+			{
+				Time.fixedDeltaTime = 0.15f;
+			}
+			else
+			{
+				Time.fixedDeltaTime = defaultDeltatime;
+			}
 		}
 	}
 }

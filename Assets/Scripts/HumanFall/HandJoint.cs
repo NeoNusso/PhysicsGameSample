@@ -11,8 +11,9 @@ namespace Nussoft
 		// Start is called before the first frame update
 		void OnCollisionEnter( Collision colli )
 		{
-			if(grabbing && _joint == null && colli.rigidbody && !colli.rigidbody.isKinematic && colli.gameObject.CompareTag("Carryable"))
+			if(grabbing && _joint == null && colli.rigidbody  && colli.gameObject.CompareTag("Carryable"))
 			{
+				colli.rigidbody.isKinematic = false;
 				var contactpoint = colli.contacts[0].point;
 
 				var joint = gameObject.AddComponent<ConfigurableJoint>();

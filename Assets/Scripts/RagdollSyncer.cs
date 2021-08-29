@@ -7,6 +7,7 @@ using UnityEditor;
 #endif
 public class RagdollSyncer : MonoBehaviour
 {
+
 	[System.Serializable]
 	public class JointSet
 	{
@@ -15,7 +16,7 @@ public class RagdollSyncer : MonoBehaviour
 		Quaternion _defaultJointRotInv;
 		public Transform _target;
 		public Transform _targetParent;
-
+	
 		public void Setup(float spring, float dumper)
 		{
 			_rigidbody = _joint.GetComponent<Rigidbody>();
@@ -41,10 +42,11 @@ public class RagdollSyncer : MonoBehaviour
 			_joint.slerpDrive = drive;
 #endif
 		}
-
+	
 		public void FixedUpdate()
 		{
 			_joint.targetRotation = CalcTargetRotation(_target.rotation, _targetParent.rotation);
+			
 		}
 
 		Quaternion CalcTargetRotation(in Quaternion target, in Quaternion targetParent)
@@ -67,8 +69,8 @@ public class RagdollSyncer : MonoBehaviour
 
 	public List<JointSet> _jointset = new List<JointSet>();
 	public Transform _targetRoot;
-
-	
+	public Rigidbody _hips;
+	public float _stabilizeTorque = 10.0f;
 	public float _spring = 100.0f;
 	public float _dumper = 1.0f;
 
@@ -88,6 +90,11 @@ public class RagdollSyncer : MonoBehaviour
 		foreach (var joint in _jointset)
 		{
 			joint.FixedUpdate();
+		}
+		if (_hips)
+		{
+			var torque = Vector3.Cross(_hips.transform.up, Vector3.up);
+			_hips.AddTorque(torque * _stabilizeTorque, ForceMode.Acceleration);
 		}
 	}
 	

@@ -7,7 +7,7 @@ public class PhysicsTests2 : MonoBehaviour
 	public Rigidbody _rigidBody;
 	public Rigidbody _rigidBody2;
 	float _speed = 1.0f;
-	public void FixedUpdate()
+	public void Update()
 	{
 		var pos = _rigidBody.position;
 		pos.z += Time.fixedDeltaTime * _speed;
