@@ -19,9 +19,13 @@ namespace Nussoft
 		float _pichAngle;
 		float[] _armForwardRatio;
 		bool[] _armForward;
+		//Quaternion _defaultCameraRot;
+		Vector3 _cameraAngle;
 		private void Start()
 		{
-			_rootToCamera = _camera.transform.position - _rootRigidbody.position;
+			var camerarot = _camera.transform.rotation;
+			_rootToCamera = Quaternion.Inverse(camerarot) * (_camera.transform.position - _rootRigidbody.position);
+			_cameraAngle = _camera.transform.rotation.eulerAngles;
 			int length = _hands.Length;
 			_handsDefaultPosition = new Vector3[length];
 			_armForwardRatio = new float[length];
@@ -54,6 +58,9 @@ namespace Nussoft
 			_rootRigidbody.AddTorque(new Vector3(0.0f, _torqueY* _torqueMul, 0.0f), ForceMode.Acceleration);
 		}
 		float _torqueY;
+		
+		public float _cameraSpeed = 60.0f;
+		bool _firstUpdate = true;
 		private void Update()
 		{
 			var direction = new Vector3( Input.GetAxis("Horizontal"),  0.0f, Input.GetAxis("Vertical"));
@@ -77,13 +84,20 @@ namespace Nussoft
 			}
 			for(int i = 0; i<_armForward.Length; ++i)
 			{
-				_armForward[i] = _handjoints[i].grabbing = Input.GetMouseButton(i);
-				
+				_armForward[i] = _handjoints[i].grabbing = Input.GetMouseButton(i);	
 			}
+			
+			var mouse = new Vector3(-Mathf.Clamp(Input.GetAxis("Mouse Y"), -2.0f, 2.0f), -Mathf.Clamp(Input.GetAxis("Mouse X"),-2.0f,2.0f), 0.0f );
+			_cameraAngle += mouse * Time.deltaTime * _cameraSpeed;
+			_cameraAngle.x = Mathf.Clamp(_cameraAngle.x, -60.0f, 60.0f);
+			_firstUpdate = false;
 		}
+		
 		public void LateUpdate()
 		{
-			_camera.transform.position = _rootRigidbody.position + _rootToCamera;
+			var camerarot = Quaternion.Euler(_cameraAngle);
+			_camera.transform.position = _rootRigidbody.position + camerarot * _rootToCamera;
+			_camera.transform.rotation = camerarot;
 		}
 	}
 }
