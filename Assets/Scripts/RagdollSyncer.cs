@@ -94,7 +94,8 @@ public class RagdollSyncer : MonoBehaviour
 		if (_hips)
 		{
 			var torque = Vector3.Cross(_hips.transform.up, Vector3.up);
-			_hips.AddTorque(torque * _stabilizeTorque, ForceMode.Acceleration);
+			var ratio = 1.0f - Mathf.Clamp01(_hips.transform.up.y);
+ 			_hips.AddTorque(torque * _stabilizeTorque * (1.0f + 20.0f * ratio) , ForceMode.Acceleration);
 		}
 	}
 	
