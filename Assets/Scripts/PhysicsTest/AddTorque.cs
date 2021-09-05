@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class AddTorque : MonoBehaviour
 {
-    //public Vector3 _axis;
-    public Vector3 _torque;
     public Rigidbody _rigid;
 	// Update is called once per frame
 	private void Start()
