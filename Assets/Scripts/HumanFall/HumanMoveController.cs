@@ -74,14 +74,15 @@ namespace Nussoft
 		private void Update()
 		{
 			var direction = new Vector3( Input.GetAxis("Horizontal"),  0.0f, Input.GetAxis("Vertical"));
-			direction = _camera.transform.TransformVector(direction);
-			direction.y = 0.0f;
-			
-			if (direction.sqrMagnitude > 1.0f)
+			if(direction.x != 0.0f || direction.z != 0.0f)
 			{
-				direction.Normalize();
+				direction = _camera.transform.TransformVector(direction);
+				var magnitude = direction.magnitude;
+				direction.y = 0.0f;
+				direction = direction.normalized * magnitude;
 			}
 			_moveDirection = direction;
+
 			var rot = Quaternion.FromToRotation(_rootRigidbody.transform.forward, direction);
 			var euler = rot.eulerAngles;
 			_torqueY = euler.y;
